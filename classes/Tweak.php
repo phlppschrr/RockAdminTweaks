@@ -86,8 +86,14 @@ abstract class Tweak extends Wire
   {
     $path = Paths::normalizeSeparators($path);
     $url = str_replace(
-      wire()->config->paths->root,
-      wire()->config->urls->root,
+      [
+        wire()->config->paths->root,
+        Paths::normalizeSeparators(dirname(__DIR__)) . '/',
+      ],
+      [
+        wire()->config->urls->root,
+        wire()->config->urls->siteModules . "RockAdminTweaks/",
+      ],
       $path
     );
     if ($nocache) {
